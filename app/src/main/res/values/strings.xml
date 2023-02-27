@@ -2,4 +2,6 @@
     <string name="app_name">AudioNotes</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_notes">My notes</string>
+    <string name="note">Note</string>
 </resources>
