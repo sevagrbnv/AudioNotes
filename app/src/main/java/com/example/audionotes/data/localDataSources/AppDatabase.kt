@@ -8,13 +8,13 @@ import com.example.audionotes.data.NoteData
 
 @Database(entities = [NoteData::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun todoListDao(): NoteDao
+    abstract fun noteDao(): NoteDao
 
     companion object {
 
         private var INSTANCE: AppDatabase? = null
         private val LOCK = Any()
-        private const val DB_NAME = "note.db"
+        private const val DB_NAME = "app.db"
 
         fun getInstance(application: Application): AppDatabase {
             INSTANCE?.let {

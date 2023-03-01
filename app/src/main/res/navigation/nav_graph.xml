@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/noteFragment"
-        android:name="com.example.audionotes.presentation.NoteFragment"
+        android:name="com.example.audionotes.presentation.noteFragment.NoteFragment"
         android:label="@string/note"
         tools:layout="@layout/fragment_note" />
 </navigation>

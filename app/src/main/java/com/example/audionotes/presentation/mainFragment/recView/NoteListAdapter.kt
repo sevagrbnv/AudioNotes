@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.audionotes.R
 import com.example.audionotes.databinding.ListItemBinding
 import com.example.audionotes.domain.Note
+import com.example.audionotes.utils.AudioPlayer
 
 class NoteListAdapter : ListAdapter<Note, NoteViewHolder>(
     NoteDiffCallback()
@@ -31,9 +32,10 @@ class NoteListAdapter : ListAdapter<Note, NoteViewHolder>(
 
         when (binding) {
             is ListItemBinding  -> {
+                var isOn = false
                 binding.titleMain.text = item.title
                 binding.dateMain.text = item.date
-                binding.timerMain.text = item.date
+                binding.timerMain.text = if (item.audioSource == null) "Empty" else "00:00"
                 binding.audioButtomMain.setOnClickListener{
                     onAudioButtonClickListener?.invoke(item)
                 }

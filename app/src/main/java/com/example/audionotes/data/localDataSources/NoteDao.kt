@@ -9,15 +9,15 @@ import com.example.audionotes.data.NoteData
 
 @Dao
 interface NoteDao {
-        @Insert(entity = NoteData::class, onConflict = OnConflictStrategy.REPLACE)
-        suspend fun addNote(noteData: NoteData)
+    @Insert(entity = NoteData::class, onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addNote(noteData: NoteData)
 
-        @Query("DELETE FROM notes WHERE id = (:noteDateId)")
-        suspend fun deleteNote(noteDateId: Int)
+    @Query("DELETE FROM notes WHERE id = (:noteDateId)")
+    suspend fun deleteNote(noteDateId: Long)
 
-        @Query("SELECT * FROM notes WHERE id = (:noteDataId) LIMIT 1")
-        suspend fun getNote(noteDataId: Int): NoteData
+    @Query("SELECT * FROM notes WHERE id = (:noteDataId) LIMIT 1")
+    suspend fun getNote(noteDataId: Long): NoteData
 
-        @Query("SELECT * FROM notes")
-        fun getTodoList(): LiveData<List<NoteData>>
+    @Query("SELECT * FROM notes")
+    fun getTodoList(): LiveData<List<NoteData>>
 }

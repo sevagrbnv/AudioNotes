@@ -1,101 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.NoteFragment"
-    android:orientation="vertical">
+<layout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_desc"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:hintTextAppearance="@style/MyHintStyle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".presentation.noteFragment.NoteFragment">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edTextDesc"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:hint="Enter the title"
-            android:gravity="top"
-            android:scrollbars="vertical"/>
+            android:layout_margin="8dp"
+            app:hintTextAppearance="@style/MyHintStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edTextDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="top"
+                android:hint="Enter the title"
+                android:scrollbars="vertical" />
 
-    <ImageButton
-        android:id="@+id/audioButtonNote"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginVertical="32dp"
-        android:background="@drawable/mic_button_shape"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_mic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_desc"
-        app:tint="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/TimerNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No record"
-        android:layout_marginVertical="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/audioButtonNote"/>
+        <ImageButton
+            android:id="@+id/audioButtonNote"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginVertical="32dp"
+            android:background="@drawable/mic_button_shape"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_mic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/til_desc"
+            app:tint="@color/white" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/TimerNote">
-
-        <Button
-            android:id="@+id/recordButton"
+        <TextView
+            android:id="@+id/TimerNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginVertical="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/no_record"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/audioButtonNote" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/TimerNote">
+
+            <Button
+                android:id="@+id/recordButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/vk_blue"
+                android:text="@string/record"
+                android:textColor="@color/white"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/playButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/vk_blue"
+                android:text="@string/play"
+                android:textColor="@color/white"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/red"
+                android:text="@string/delete"
+                android:textColor="@color/white"
+                app:cornerRadius="8dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
-            android:text="Record"
             android:backgroundTint="@color/vk_blue"
+            android:text="Save note"
             android:textColor="@color/white"
             app:cornerRadius="8dp"
-            />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            android:text="Delete"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/red"
-            app:cornerRadius="8dp"
-            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="Save note"
-        android:textColor="@color/white"
-        android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/vk_blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:cornerRadius="8dp"
-        />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
