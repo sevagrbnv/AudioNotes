@@ -88,6 +88,7 @@ class NoteFragment : Fragment() {
         }
     }
 
+
     private fun onClickRecordButton(filename: String) {
         if (audioController.isRecording()) {
             binding.recordButton.text = getString(R.string.record)

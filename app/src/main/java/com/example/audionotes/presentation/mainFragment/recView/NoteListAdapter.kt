@@ -1,5 +1,6 @@
 package com.example.audionotes.presentation.mainFragment.recView
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,6 +10,7 @@ import com.example.audionotes.R
 import com.example.audionotes.databinding.ListItemBinding
 import com.example.audionotes.domain.Note
 import com.example.audionotes.utils.AudioPlayer
+import com.example.audionotes.utils.getDuration
 
 class NoteListAdapter : ListAdapter<Note, NoteViewHolder>(
     NoteDiffCallback()
@@ -31,12 +33,11 @@ class NoteListAdapter : ListAdapter<Note, NoteViewHolder>(
         val binding = holder.binding
 
         when (binding) {
-            is ListItemBinding  -> {
-                var isOn = false
+            is ListItemBinding -> {
                 binding.titleMain.text = item.title
                 binding.dateMain.text = item.date
-                binding.timerMain.text = if (item.audioSource == null) "Empty" else "00:00"
-                binding.audioButtomMain.setOnClickListener{
+                binding.timerMain.text = item.audioSource?.let { getDuration(it) }
+                binding.audioButtomMain.setOnClickListener {
                     onAudioButtonClickListener?.invoke(item)
                 }
                 binding.root.setOnClickListener {
