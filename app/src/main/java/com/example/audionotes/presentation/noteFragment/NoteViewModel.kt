@@ -29,6 +29,10 @@ class NoteViewModel @Inject constructor(
     val errorInputDesc: LiveData<Boolean>
         get() = _errorInputDesc
 
+    private val _shouldCloseScreen = MutableLiveData<Boolean>(false)
+    val shouldCloseScreen: LiveData<Boolean>
+        get() = _shouldCloseScreen
+
     fun getNote(noteId: Long) {
         viewModelScope.launch {
             val item = getNoteUseCase.execute(noteId)
@@ -39,17 +43,35 @@ class NoteViewModel @Inject constructor(
     fun addTodoItem(inputDesc: String?, filename: String?) {
         val title = parseDesc(inputDesc)
         val validInput = isValidInput(title)
-        if (validInput) {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            if (validInput) {
                 val item = Note(title = title, date = getCurrentTime(), audioSource = filename)
                 addNoteUseCase.execute(item)
+                _shouldCloseScreen.postValue(true)
             }
+        }
+    }
+
+    fun editTodoItem(inputDesc: String?, filename: String?) {
+        val title = parseDesc(inputDesc)
+        val validInput = isValidInput(title)
+        if (validInput) {
+            _note.value?.let {
+                viewModelScope.launch {
+                    val item = it.copy(title = title,
+                    date = getCurrentTime(),
+                    audioSource = filename)
+                    editNoteUseCase.execute(item)
+                    _shouldCloseScreen.postValue(true)
+                }
+            }
+
         }
     }
 
     private fun isValidInput(inputDesc: String): Boolean {
         var result = true
-        if (inputDesc.isBlank())  {
+        if (inputDesc.isBlank()) {
             _errorInputDesc.value = true
             result = false
         }
@@ -60,7 +82,6 @@ class NoteViewModel @Inject constructor(
         val sdf = SimpleDateFormat("dd.MM-yyyy HH:mm")
         return sdf.format(Date())
     }
-
 
 
     private fun parseDesc(inputDesc: String?): String = inputDesc?.trim() ?: ""

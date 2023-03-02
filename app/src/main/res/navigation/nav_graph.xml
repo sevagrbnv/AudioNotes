@@ -18,5 +18,11 @@
         android:id="@+id/noteFragment"
         android:name="com.example.audionotes.presentation.noteFragment.NoteFragment"
         android:label="@string/note"
-        tools:layout="@layout/fragment_note" />
+        tools:layout="@layout/fragment_note" >
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L"
+            />
+    </fragment>
 </navigation>

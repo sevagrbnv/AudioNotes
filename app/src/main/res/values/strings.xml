@@ -9,4 +9,5 @@
     <string name="no_record">No record</string>
     <string name="delete">Delete</string>
     <string name="play">Play</string>
+    <string name="empty_string">Empty string</string>
 </resources>

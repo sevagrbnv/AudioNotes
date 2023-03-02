@@ -2,13 +2,11 @@ package com.example.audionotes.presentation.mainFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.provider.MediaStore.Audio
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -54,13 +52,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         Log.e("Sosiski", "1")
         viewModel.noteList.observe(viewLifecycleOwner) {
             noteListAdapter.submitList(it)
-            //checkListForEmpty()
         }
         Log.e("Sosiski", "2")
         setRecView()
         Log.e("Sosiski", "1")
         binding.fabAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_noteFragment)
+            val direction = MainFragmentDirections.actionMainFragmentToNoteFragment()
+            findNavController().navigate(direction)
         }
     }
 
@@ -77,7 +75,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun setItemClickListener() {
         noteListAdapter.onItemClickListener = {
             Log.e("!!!", it.toString())
-            //openSecondFragmentListener?.openSecondFragment(EDIT_MODE, it.id)
+            val direction = MainFragmentDirections.actionMainFragmentToNoteFragment(it.id)
+            findNavController().navigate(direction)
         }
     }
 
@@ -108,14 +107,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val item = noteListAdapter.currentList[viewHolder.adapterPosition]
                 viewModel.deleteTodoItem(item)
-                //checkListForEmpty(rcViewTodoList)
             }
         }
         val itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
 
-    companion object {
-
-    }
 }

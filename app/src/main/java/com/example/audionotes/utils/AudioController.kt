@@ -4,7 +4,6 @@ import android.content.Context
 import android.media.MediaRecorder
 import android.os.Build
 import android.util.Log
-import java.io.File
 import javax.inject.Inject
 
 class AudioController @Inject constructor(
@@ -13,12 +12,11 @@ class AudioController @Inject constructor(
 
     private var mediaRecorder: MediaRecorder? = null
 
-    fun start(fileName: String) {
+    fun start(filename: String) {
         Log.e("!!!!!", "start")
 
-        val file = File(fileName)
-        if (file.exists())
-            file.delete()
+        val fileContoller = FileContoller()
+        fileContoller.deleteFile(filename)
 
         val mediaRecorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             MediaRecorder(context)
@@ -26,7 +24,7 @@ class AudioController @Inject constructor(
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-        mediaRecorder.setOutputFile(fileName)
+        mediaRecorder.setOutputFile(filename)
         mediaRecorder.prepare()
         mediaRecorder.start()
 
