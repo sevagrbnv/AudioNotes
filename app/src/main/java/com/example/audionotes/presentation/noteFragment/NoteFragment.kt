@@ -19,7 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.audionotes.R
 import com.example.audionotes.databinding.FragmentNoteBinding
 import com.example.audionotes.domain.Note
-import com.example.audionotes.utils.AudioController
+import com.example.audionotes.utils.AudioRecorder
 import com.example.audionotes.utils.AudioPlayer
 import com.example.audionotes.utils.FileContoller
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,8 +32,7 @@ class NoteFragment : Fragment() {
 
     private val viewModel by viewModels<NoteViewModel>()
 
-    private lateinit var audioController: AudioController
-    private lateinit var audioPlayer: AudioPlayer
+    private lateinit var audioRecorder: AudioRecorder
     private var countDownTimer: CountDownTimer? = null
 
     private lateinit var filename: String
@@ -43,8 +42,7 @@ class NoteFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        audioController = AudioController(requireActivity())
-        audioPlayer = AudioPlayer()
+        audioRecorder = AudioRecorder(requireActivity())
         filename = getPath(System.currentTimeMillis().toString())
     }
 
@@ -91,32 +89,20 @@ class NoteFragment : Fragment() {
             } else onClickRecordButton(filename)
         }
         binding.playButton.setOnClickListener {
-            onClickPlayButton(filename)
+            viewModel.playFile(filename)
         }
         binding.deleteButton.setOnClickListener {
-            val file = File(filename)
-            if (file.exists() && (!audioPlayer.isPlaying() || audioPlayer.isEnd())) {
-                file.delete()
-            }
+            viewModel.deleteFile(filename)
             binding.timerNote.text = getString(R.string.no_record)
         }
     }
 
-    private fun onClickPlayButton(filename: String) {
-        if (audioPlayer.isPlaying() && !audioPlayer.isEnd()) {
-            audioPlayer.stop()
-        } else {
-            audioPlayer.start(filename)
-        }
-    }
-
-
     private fun onClickRecordButton(filename: String) {
-        if (audioController.isRecording()) {
+        if (audioRecorder.isRecording()) {
             binding.recordButton.text = getString(R.string.record)
             binding.deleteButton.isEnabled = true
             binding.playButton.isEnabled = true
-            audioController.stop()
+            audioRecorder.stop()
             countDownTimer?.cancel()
             countDownTimer = null
             binding.timerNote.text = FileContoller().getDuration(filename)
@@ -124,13 +110,13 @@ class NoteFragment : Fragment() {
             binding.deleteButton.isEnabled = false
             binding.playButton.isEnabled = false
             binding.recordButton.text = getString(R.string.stop)
-            audioController.start(filename)
+            audioRecorder.start(filename)
             countDownTimer = object : CountDownTimer(
                 MAX_LENGTH_OF_AUDIO.toLong(),
                 TIME_INTERVAL.toLong()
             ) {
                 override fun onTick(p0: Long) {
-                    handleVolume(audioController.getVolume())
+                    handleVolume(audioRecorder.getVolume())
                 }
 
                 override fun onFinish() {}
@@ -199,6 +185,7 @@ class NoteFragment : Fragment() {
         when (screenMode) {
             EDIT_MODE -> startEditMode()
             ADD_MODE -> startAddMode()
+            else -> throw RuntimeException("Unknown screen mode")
         }
     }
 

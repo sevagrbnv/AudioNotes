@@ -8,8 +8,10 @@ import com.example.audionotes.domain.AddNoteUseCase
 import com.example.audionotes.domain.EditNoteUseCase
 import com.example.audionotes.domain.GetNoteUseCase
 import com.example.audionotes.domain.Note
+import com.example.audionotes.utils.AudioPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -20,6 +22,8 @@ class NoteViewModel @Inject constructor(
     private val addNoteUseCase: AddNoteUseCase,
     private val editNoteUseCase: EditNoteUseCase
 ) : ViewModel() {
+
+    private val audioPlayer = AudioPlayer()
 
     private val _note = MutableLiveData<Note>()
     val note: LiveData<Note>
@@ -49,6 +53,21 @@ class NoteViewModel @Inject constructor(
                 addNoteUseCase.execute(item)
                 _shouldCloseScreen.postValue(true)
             }
+        }
+    }
+
+    fun playFile(filename: String?) {
+        if (audioPlayer.isPlaying() && !audioPlayer.isEnd()) {
+            audioPlayer.stop()
+        } else {
+            filename?.let { audioPlayer.start(it) }
+        }
+    }
+
+    fun deleteFile(filename: String?) {
+        val file = File(filename)
+        if (file.exists() && (!audioPlayer.isPlaying() || audioPlayer.isEnd())) {
+            file.delete()
         }
     }
 

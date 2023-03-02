@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.AudioNotes" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/vk_blue</item>
+        <item name="colorPrimaryVariant">@color/vk_blue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/vk_blue</item>
@@ -22,10 +22,5 @@
     <style name="Button.Blue" parent="ThemeOverlay.AppCompat">
         <item name="colorAccent">@color/vk_blue</item>
     </style>
-
-    <style name="MyHintStyle" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/vk_blue</item>
-    </style>
-
 
 </resources>

@@ -6,7 +6,7 @@ import android.os.Build
 import android.util.Log
 import javax.inject.Inject
 
-class AudioController @Inject constructor(
+class AudioRecorder @Inject constructor(
     private val context: Context
 ) {
 
