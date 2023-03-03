@@ -2,7 +2,6 @@ package com.example.audionotes.presentation.mainFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,13 +48,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.e("Sosiski", "1")
         viewModel.noteList.observe(viewLifecycleOwner) {
             noteListAdapter.submitList(it)
         }
-        Log.e("Sosiski", "2")
         setRecView()
-        Log.e("Sosiski", "1")
         binding.fabAdd.setOnClickListener {
             val direction = MainFragmentDirections.actionMainFragmentToNoteFragment()
             findNavController().navigate(direction)
@@ -74,7 +70,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private fun setItemClickListener() {
         noteListAdapter.onItemClickListener = {
-            Log.e("!!!", it.toString())
             val direction = MainFragmentDirections.actionMainFragmentToNoteFragment(it.id)
             findNavController().navigate(direction)
         }

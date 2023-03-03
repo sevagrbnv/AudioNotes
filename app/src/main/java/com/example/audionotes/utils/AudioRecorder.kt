@@ -3,7 +3,6 @@ package com.example.audionotes.utils
 import android.content.Context
 import android.media.MediaRecorder
 import android.os.Build
-import android.util.Log
 import javax.inject.Inject
 
 class AudioRecorder @Inject constructor(
@@ -13,8 +12,6 @@ class AudioRecorder @Inject constructor(
     private var mediaRecorder: MediaRecorder? = null
 
     fun start(filename: String) {
-        Log.e("!!!!!", "start")
-
         val fileContoller = FileContoller()
         fileContoller.deleteFile(filename)
 
@@ -33,13 +30,10 @@ class AudioRecorder @Inject constructor(
 
     fun stop() {
         if (mediaRecorder != null) {
-            Log.e("!!!!!", "stop")
             try {
                 mediaRecorder?.stop()
                 mediaRecorder?.release()
-            } catch (e: java.lang.Exception) {
-                Log.e("!!!", "ttttttt")
-            }
+            } catch (e: java.lang.Exception) {}
             mediaRecorder = null
         }
     }

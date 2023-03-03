@@ -1,10 +1,6 @@
 package com.example.audionotes.utils
 
 import android.media.MediaPlayer
-import android.media.MediaRecorder
-import android.os.Build
-import android.util.Log
-import com.example.audionotes.presentation.noteFragment.NoteFragment
 import java.io.File
 
 class AudioPlayer {
@@ -12,17 +8,14 @@ class AudioPlayer {
     private var mediaPlayer: MediaPlayer? = null
 
     fun start(fileName: String) {
-        Log.e("!!!!!", "start")
 
         val mediaPlayer = MediaPlayer()
 
         val file = File(fileName)
         if (file.exists()) {
-
-            Log.e("!!!!!", fileName)
-            mediaPlayer?.setDataSource(fileName)
-            mediaPlayer?.prepare()
-            mediaPlayer?.start()
+            mediaPlayer.setDataSource(fileName)
+            mediaPlayer.prepare()
+            mediaPlayer.start()
         }
 
         this.mediaPlayer = mediaPlayer
@@ -30,13 +23,10 @@ class AudioPlayer {
 
     fun stop() {
         if (mediaPlayer != null) {
-            Log.e("!!!!!", "stop")
             try {
                 mediaPlayer?.stop()
                 mediaPlayer?.release()
-            } catch (e: java.lang.Exception) {
-                Log.e("!!!", "ttttttt")
-            }
+            } catch (e: java.lang.Exception) {}
             mediaPlayer = null
         }
     }

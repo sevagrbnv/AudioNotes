@@ -20,10 +20,8 @@ import com.example.audionotes.R
 import com.example.audionotes.databinding.FragmentNoteBinding
 import com.example.audionotes.domain.Note
 import com.example.audionotes.utils.AudioRecorder
-import com.example.audionotes.utils.AudioPlayer
 import com.example.audionotes.utils.FileContoller
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
 
 @AndroidEntryPoint
 class NoteFragment : Fragment() {
