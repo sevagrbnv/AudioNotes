@@ -88,7 +88,7 @@ class NoteViewModel @Inject constructor(
         }
     }
 
-    private fun isValidInput(inputDesc: String): Boolean {
+    fun isValidInput(inputDesc: String): Boolean {
         var result = true
         if (inputDesc.isBlank()) {
             _errorInputDesc.value = true
@@ -97,11 +97,10 @@ class NoteViewModel @Inject constructor(
         return result
     }
 
-    private fun getCurrentTime(): String {
+    fun getCurrentTime(): String {
         val sdf = SimpleDateFormat("dd.MM-yyyy HH:mm")
         return sdf.format(Date())
     }
-
 
     private fun parseDesc(inputDesc: String?): String = inputDesc?.trim() ?: ""
 
